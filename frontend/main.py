@@ -7,7 +7,7 @@ import plotly.express as px
 # -----------------------------
 # CONFIG (ADDED – REQUIRED)
 # -----------------------------
-BACKEND_URL = "http://127.0.0.1:8000"
+BACKEND_URL = "ai-data-analysis-graph-generation-jiac6egjpd7m6xu7vfd9kx.streamlit.app"
 
 st.set_page_config(
     page_title="InsightPilot",
