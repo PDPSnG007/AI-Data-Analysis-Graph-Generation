@@ -1,20 +1,27 @@
 import os
-from pydantic_ai import Agent
 from dotenv import load_dotenv
+from pydantic_ai import Agent
+from pydantic_ai.models.openai import OpenAIModel
 
-# Load .env locally (Railway ignores this safely)
+# Load env locally
 load_dotenv()
 
-# OpenRouter key MUST be present
-if not os.getenv("OPENROUTER_API_KEY"):
-    raise RuntimeError("OPENROUTER_API_KEY is not set")
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
+if not OPENROUTER_API_KEY:
+    raise RuntimeError("OPENROUTER_API_KEY not set")
 
-# pydantic-ai internally reads OPENAI_API_KEY
-# so we map it explicitly
-os.environ["OPENAI_API_KEY"] = os.environ["OPENROUTER_API_KEY"]
+model = OpenAIModel(
+    model_name="mistralai/mistral-7b-instruct",
+    base_url="https://openrouter.ai/api/v1",
+    api_key=OPENROUTER_API_KEY,
+    default_headers={
+        "HTTP-Referer": "https://ai-data-analysis-graph-generation-production.up.railway.app",
+        "X-Title": "AI Data Analysis Graph Generator"
+    }
+)
 
 agent = Agent(
-    model="openrouter:mistralai/mistral-7b-instruct",
+    model=model,
     system_prompt="""
     You are a business data analyst.
     Interpret provided statistical summaries.
