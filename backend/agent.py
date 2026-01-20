@@ -1,12 +1,14 @@
 import os
-from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIModel
 
-load_dotenv()
+# Must be set at runtime!
+api_key = os.getenv("OPENROUTER_API_KEY")
+if not api_key:
+    raise RuntimeError("OPENROUTER_API_KEY not set")
 
-# OpenRouter config via env vars (SUPPORTED)
-os.environ["OPENAI_API_KEY"] = os.getenv("OPENROUTER_API_KEY")
+# For pydantic-ai (current version)
+os.environ["OPENAI_API_KEY"] = api_key
 os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
 model = OpenAIModel(
