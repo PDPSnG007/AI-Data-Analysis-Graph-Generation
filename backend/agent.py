@@ -1,7 +1,7 @@
 from pydantic_ai import Agent
 from schemas import Insight
 from pydantic_ai.models.openai import OpenAIModel
-from config import OPENROUTER_API_KEY, MODEL_NAME, BASE_URL
+from config import MODEL_NAME
 
 model = OpenAIModel(
     model_name=MODEL_NAME
