@@ -3,21 +3,14 @@ from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.models.openai import OpenAIModel
 
-# Load env locally
 load_dotenv()
 
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-if not OPENROUTER_API_KEY:
-    raise RuntimeError("OPENROUTER_API_KEY not set")
+# OpenRouter config via env vars (SUPPORTED)
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENROUTER_API_KEY")
+os.environ["OPENAI_BASE_URL"] = "https://openrouter.ai/api/v1"
 
 model = OpenAIModel(
-    model_name="mistralai/mistral-7b-instruct",
-    base_url="https://openrouter.ai/api/v1",
-    api_key=OPENROUTER_API_KEY,
-    default_headers={
-        "HTTP-Referer": "https://ai-data-analysis-graph-generation-production.up.railway.app",
-        "X-Title": "AI Data Analysis Graph Generator"
-    }
+    model_name="mistralai/mistral-7b-instruct"
 )
 
 agent = Agent(
