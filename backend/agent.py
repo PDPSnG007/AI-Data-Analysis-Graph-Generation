@@ -1,23 +1,20 @@
 import os
 from pydantic_ai import Agent
-from schemas import Insight
-
-# Load local .env (optional for local testing)
 from dotenv import load_dotenv
+
+# Load .env locally (Railway ignores this safely)
 load_dotenv()
 
-# Must match the variable name you set in Railway / .env
-api_key = os.getenv("OPENROUTER_API_KEY")
-if not api_key:
-    raise RuntimeError("OPENROUTER_API_KEY not set in environment")
+# OpenRouter key MUST be present
+if not os.getenv("OPENROUTER_API_KEY"):
+    raise RuntimeError("OPENROUTER_API_KEY is not set")
 
-# Set environment variable for pydantic_ai to pick it up
-os.environ["OPENAI_API_KEY"] = api_key 
+# pydantic-ai internally reads OPENAI_API_KEY
+# so we map it explicitly
+os.environ["OPENAI_API_KEY"] = os.environ["OPENROUTER_API_KEY"]
 
-# Initialize Agent with explicit OpenRouterProvider
 agent = Agent(
     model="openrouter:mistralai/mistral-7b-instruct",
-    provider=OpenRouterProvider(api_key=api_key),
     system_prompt="""
     You are a business data analyst.
     Interpret provided statistical summaries.
