@@ -7,7 +7,7 @@ import plotly.express as px
 # -----------------------------
 # CONFIG (ADDED – REQUIRED)
 # -----------------------------
-BACKEND_URL = "ai-data-analysis-graph-generation-production.up.railway.app"
+BACKEND_URL = "https://ai-data-analysis-graph-generation-production.up.railway.app"
 
 st.set_page_config(
     page_title="InsightPilot",
