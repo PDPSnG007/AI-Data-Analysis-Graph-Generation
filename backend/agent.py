@@ -1,17 +1,18 @@
-# agent.py
 import os
 from pydantic_ai import Agent
-from pydantic_ai.providers import OpenRouterProvider
 from schemas import Insight
-from dotenv import load_dotenv
 
-# Load .env locally
+# Load local .env (optional for local testing)
+from dotenv import load_dotenv
 load_dotenv()
 
-# Get API key from environment variable
+# Must match the variable name you set in Railway / .env
 api_key = os.getenv("OPENROUTER_API_KEY")
 if not api_key:
     raise RuntimeError("OPENROUTER_API_KEY not set in environment")
+
+# Set environment variable for pydantic_ai to pick it up
+os.environ["OPENAI_API_KEY"] = api_key 
 
 # Initialize Agent with explicit OpenRouterProvider
 agent = Agent(
