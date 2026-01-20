@@ -2,6 +2,7 @@ from pydantic_ai import Agent
 from schemas import Insight
 from pydantic_ai.models.openai import OpenAIModel
 from config import MODEL_NAME
+import os
 
 
 api_key = os.getenv("OPENAI_API_KEY")  # Only needed if you want to check
